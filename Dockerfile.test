@@ -1,0 +1,17 @@
+# Use an official Maven image to build the application
+FROM maven:3.8.4-openjdk-11 AS build
+
+# Set the working directory
+WORKDIR /app
+
+# Copy the project files into the container
+COPY . /app
+
+# Build the application with Maven, skipping tests during the build
+RUN mvn clean package -DskipTests
+
+# Set the working directory for tests
+WORKDIR /app
+
+# Run tests with Maven
+CMD ["mvn", "test"]
